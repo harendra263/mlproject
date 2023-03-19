@@ -58,18 +58,12 @@ class DataTransformation:
             logging.info(f"Categorical columns: {categorical_columns}")
             logging.info(f"Numerical columns: {numerical_columns}")
 
-            preprocessor=ColumnTransformer(
+            return ColumnTransformer(
                 [
-                ("num_pipeline",num_pipeline,numerical_columns),
-                ("cat_pipelines",cat_pipeline,categorical_columns)
-
+                    ("num_pipeline", num_pipeline, numerical_columns),
+                    ("cat_pipelines", cat_pipeline, categorical_columns),
                 ]
-
-
             )
-
-            return preprocessor
-        
         except Exception as e:
             raise CustomException(e,sys)
         
@@ -95,7 +89,7 @@ class DataTransformation:
             target_feature_test_df=test_df[target_column_name]
 
             logging.info(
-                f"Applying preprocessing object on training dataframe and testing dataframe."
+                "Applying preprocessing object on training dataframe and testing dataframe."
             )
 
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
@@ -106,7 +100,7 @@ class DataTransformation:
             ]
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
 
-            logging.info(f"Saved preprocessing object.")
+            logging.info("Saved preprocessing object.")
 
             save_object(
 
